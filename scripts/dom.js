@@ -1,49 +1,42 @@
 // createCard function takes data object as a parameter , and returns card element
 const createCard = (dataObj) => {
   // Creating Dom elements
-  const card = document.createElement("div");
-  const imageContainer = document.createElement("div");
-  const image = document.createElement("img");
-  const videoDescription = document.createElement("div");
-  const videoTitle = document.createElement("h2");
-  const videoDesc = document.createElement("p");
-  const channelTitle = document.createElement("h3");
+  const card = document.createElement("div")
+  const imageContainer = document.createElement("div")
+  const image = document.createElement("img")
+  const videoDescription = document.createElement("div")
+  const videoTitle = document.createElement("h2")
+  const videoDesc = document.createElement("p")
+  const channelTitle = document.createElement("h3")
 
   // adding the dataobj to the created elements
-  image.src = dataObj.thumbnails.url;
-  videoTitle.textContent = dataObj.title;
-  videoDesc.textContent = dataObj.description;
-  channelTitle.textContent = dataObj.channelTitle;
+  image.src = dataObj.thumbnails.url
+  image.width = dataObj.thumbnails.width * 0.9
+  videoTitle.textContent = dataObj.title                                                                                        
+  videoDesc.textContent = dataObj.description.substring(0,170)+" ..."
+  channelTitle.textContent = dataObj.channelTitle
 
   // adding classes to the elements
-  card.classList.add("video-content");
-  card.id = dataObj.videoId;
-  imageContainer.classList.add("video");
-  videoDescription.classList.add("video-description");
-  videoTitle.classList.add("video-title");
-  videoDesc.classList.add("video-desc");
-  channelTitle.classList.add("channel-title");
+  card.classList.add("video-content")
+  card.id = dataObj.videoId
+  imageContainer.classList.add("video")
+  videoDescription.classList.add("video-description")
+  videoTitle.classList.add("video-title")
+  videoDesc.classList.add("video-desc")
+  channelTitle.classList.add("channel-title")
 
   // appending elements to their divs
-  imageContainer.appendChild(image);
-  videoDescription.appendChild(videoTitle);
-  videoDescription.appendChild(videoDesc);
-  videoDescription.appendChild(channelTitle);
-  card.appendChild(imageContainer);
-  card.appendChild(videoDescription);
+  imageContainer.appendChild(image)
+  videoDescription.append(videoTitle,videoDesc,channelTitle)
+  card.append(imageContainer,videoDescription)
 
   // add click listener
   card.addEventListener("click", (event) => {
     addDataToAppContainer(createVideoDiv(dataObj))
-    // addDataToAppContainer(createVideoDiv(dataObj));
-    // const videoContainer = document.createElement("div");
-    // videoContainer.classList.add("app-video");
-    // videoContainer.appendChild(createVideoDiv(dataObj));
   });
 
-  //return
-  return card;
-};
+  return card
+}
 
 // createVideoDiv function takes data object , and return video section
 const createVideoDiv = (dataObj) => {
@@ -82,7 +75,7 @@ const createVideoDiv = (dataObj) => {
   // show more button
   const limit = 50;
   const description = dataObj.description;
-  const subDescription = description.substring(0,limit);
+  const subDescription = description.substring(0,limit)+" ..."
 
   iframeDescriptionP.textContent = subDescription;
 
@@ -90,12 +83,12 @@ const createVideoDiv = (dataObj) => {
   readMoreButton.addEventListener("click",()=>{
     if (isMore){
       iframeDescriptionP.textContent = subDescription;
-      readMoreButton.textContent = "show Less";
-      isMore = !isMore //!true
+      readMoreButton.textContent = "show More";
+      isMore = !isMore 
       } else{
       iframeDescriptionP.textContent = description;
-      readMoreButton.textContent = "show More";
-      isMore = !isMore//!false
+      readMoreButton.textContent = "show Less";
+      isMore = !isMore
     }
   })
   return videoDisplay;
@@ -103,40 +96,44 @@ const createVideoDiv = (dataObj) => {
 
 //grid function takes data array and returns video container div
 const grid = (dataArray) => {
-  const videoContainer = document.createElement("div");
-  videoContainer.classList.add("app-video");
-  dataArray.forEach((dataObj) => {
-    videoContainer.appendChild(createCard(dataObj));
-  });
-  return videoContainer;
-};
+  const videoContainer = document.createElement("div")
+  videoContainer.classList.add("app-video")
+  if(dataArray){
+    dataArray.forEach((dataObj) => {
+        videoContainer.appendChild(createCard(dataObj))
+    })
+    return videoContainer
+  }
+
+}
 
 // searchAction function retrieve the input and return the result
 const searchAction = (callback) => {
-  const input = document.querySelector(".app-input input");
-  const inputValue = input.value.trim().toLowerCase();
+  const input = document.querySelector(".app-input input")
+  const inputValue = input.value.trim().toLowerCase()
   if (!inputValue) {
-    callback();
+    callback()
+    return
   }
   getSearchResults(inputValue, (data) => {
-    callback(data);
-  });
-};
+    callback(data)
+  })
+}
 
 // addDataToAppContainer functions add data to the container div
 const addDataToAppContainer = (data) => {
-  const appContainer = document.querySelector(".app-container");
+  const appContainer = document.querySelector(".app-container")
   const appVideo = document.querySelector('.app-video')
   if (data) {
     appContainer.removeChild(appVideo);
     appContainer.appendChild(data);
   }
-};
+}
 
 // onStart function start the website
 const onStart = (() => {
   const searchButton = document.querySelector("#search-button");
-  getPopularVideos((data) => addDataToAppContainer(grid (data)));
+  getPopularVideos((data) => addDataToAppContainer(grid (data)),"NA",25);
   searchButton.addEventListener("click", () => {
   searchAction((data) => addDataToAppContainer(grid(data)));
   });
