@@ -51,4 +51,6 @@ const getData = (ResourceTypes, options, callback) => {
   });
 };
 
-module.exports = { getQueryString, createYoutubeUrl };
+if (typeof module !== "undefined") {
+  module.exports = { getQueryString, createYoutubeUrl };
+  }
