@@ -41,7 +41,7 @@ const getData = (ResourceTypes, options, callback) => {
   fetch(url, (data) => {
     callback(
       data.items.map((item) => ({
-        videoId: item.id.videoId,
+        videoId: (ResourceTypes=="search")?item.id.videoId:item.id,
         title: item.snippet.title,
         description: item.snippet.description,
         thumbnails: item.snippet.thumbnails.default,
@@ -49,31 +49,4 @@ const getData = (ResourceTypes, options, callback) => {
       }))
     );
   });
-};
-
-// get the search result by input
-const getSearchResults = (input = "", callback, maxResults = 10) => {
-  // set the setting for search operating
-  getData(
-    "search",
-    {
-      q: input,
-      maxResults: maxResults,
-    },
-    callback
-  );
-};
-
-// get the Popular Videos result by regionCode
-const getPopularVideos = (callback, regionCode = "JP", maxResults = 10) => {
-  // set the setting for search operating
-  getData(
-    "videos",
-    {
-      maxResults: maxResults,
-      chart: "mostPopular",
-      regionCode: regionCode,
-    },
-    callback
-  );
 };
