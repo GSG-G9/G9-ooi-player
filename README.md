@@ -8,7 +8,7 @@
 
 ### Purpose
 
-This website is used for watching yoiutube video,it contains a search box for searching for a specific video and the results will appear bellow.
+This website is used for watching yoiutube video,it contains a search box for searching for a specific video and the results will appear bellow.We uses Youtube API , and this is the link https://developers.google.com/youtube/v3/docs . We use search and popular videos result points.
 
 ### What you will find here :-
 
