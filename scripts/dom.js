@@ -47,3 +47,13 @@ const createVideoDiv = (dataObj)=>{
     // not done yet
     console.log(dataObj);
 }
+
+//grid function takes data array and returns video container div
+const grid = (dataArray) => {
+  const videoContainer = document.createElement('div')
+  videoContainer.classList.add("app-video")
+  dataArray.forEach(dataObj => {
+    videoContainer.appendChild(createCard(dataObj))
+  });
+  return videoContainer;
+}
