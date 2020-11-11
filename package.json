@@ -1,0 +1,22 @@
+{
+  "name": "ooi-player",
+  "version": "1.0.0",
+  "description": "### Team members:-",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GSG-G9/ooi-player.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GSG-G9/ooi-player/issues"
+  },
+  "homepage": "https://github.com/GSG-G9/ooi-player#readme",
+  "dependencies": {
+    "jest": "^26.6.3"
+  }
+}

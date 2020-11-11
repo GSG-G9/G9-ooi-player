@@ -41,7 +41,7 @@ const getData = (ResourceTypes, options, callback) => {
   fetch(url, (data) => {
     callback(
       data.items.map((item) => ({
-        videoId: (ResourceTypes=="search")?item.id.videoId:item.id,
+        videoId: ResourceTypes == "search" ? item.id.videoId : item.id,
         title: item.snippet.title,
         description: item.snippet.description,
         thumbnails: item.snippet.thumbnails.default,
@@ -50,3 +50,7 @@ const getData = (ResourceTypes, options, callback) => {
     );
   });
 };
+
+if (typeof module !== "undefined") {
+  module.exports = { getQueryString, createYoutubeUrl };
+}
