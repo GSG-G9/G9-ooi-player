@@ -34,10 +34,11 @@ const createCard = (dataObj) => {
 
   // add click listener
   card.addEventListener("click", (event) => {
+    addDataToAppContainer(createVideoDiv(dataObj))
     // addDataToAppContainer(createVideoDiv(dataObj));
-    const videoContainer = document.createElement("div");
-    videoContainer.classList.add("app-video");
-    videoContainer.appendChild(createVideoDiv(dataObj));
+    // const videoContainer = document.createElement("div");
+    // videoContainer.classList.add("app-video");
+    // videoContainer.appendChild(createVideoDiv(dataObj));
   });
 
   //return
@@ -65,7 +66,7 @@ const createVideoDiv = (dataObj) => {
   // adding classes to the elements
   iframeTitle.classList.add("iframeTitle");
   iframeDescription.classList.add("iframe-description")
-  videoDisplay.classList.add("video-display");
+  videoDisplay.classList.add("app-video");
   iframeContent.classList.add("iframe-content");
   iframeVideo.setAttribute("frameborder",'0');
   iframeVideo.setAttribute("allowfullscreen", "true");
@@ -127,16 +128,16 @@ const addDataToAppContainer = (data) => {
   const appContainer = document.querySelector(".app-container");
   const appVideo = document.querySelector('.app-video')
   if (data) {
-    appContainer.removeChild(appVideo)
-    appContainer.appendChild(grid(data));
+    appContainer.removeChild(appVideo);
+    appContainer.appendChild(data);
   }
 };
 
 // onStart function start the website
 const onStart = (() => {
   const searchButton = document.querySelector("#search-button");
-  getPopularVideos((data) => addDataToAppContainer(data));
+  getPopularVideos((data) => addDataToAppContainer(grid (data)));
   searchButton.addEventListener("click", () => {
-  searchAction((data) => addDataToAppContainer(data));
+  searchAction((data) => addDataToAppContainer(grid(data)));
   });
 })();
