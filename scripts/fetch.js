@@ -24,23 +24,19 @@ const getQueryString = (options) => {
 };
 
 // get the settings and create the youtube API url
-const createYoutubeUrl = (options) => {
-  return `https://www.googleapis.com/youtube/v3/search${getQueryString(
+const createYoutubeUrl = (ResourceTypes, options) => {
+  return `https://www.googleapis.com/youtube/v3/${ResourceTypes}${getQueryString(
     options
   )}`;
 };
 
-// get the search result by input
-const getSearchResults = (input, callback) => {
-  // set the setting for search operating
-  const options = {
-    part: "snippet",
-    key: "Your API KEY",
-    q: input,
-    maxResults: 20,
-  };
+//get the data
+const getData = (ResourceTypes, options, callback) => {
+  // set the require options
+  options.part = "snippet";
+  options.key = key;
   //  create the URL
-  const url = createYoutubeUrl(options);
+  const url = createYoutubeUrl(ResourceTypes, options);
   // fetch the data
   fetch(url, (data) => {
     callback(
@@ -53,4 +49,17 @@ const getSearchResults = (input, callback) => {
       }))
     );
   });
+};
+
+// get the search result by input
+const getSearchResults = (input = "", callback, maxResults = 10) => {
+  // set the setting for search operating
+  getData(
+    "search",
+    {
+      q: input,
+      maxResults: maxResults,
+    },
+    callback
+  );
 };
