@@ -34,7 +34,10 @@ const createCard = (dataObj) => {
 
   // add click listener
   card.addEventListener("click", (event) => {
-    createVideoDiv(dataObj);
+    // addDataToAppContainer(createVideoDiv(dataObj));
+    const videoContainer = document.createElement("div");
+    videoContainer.classList.add("app-video");
+    videoContainer.appendChild(createVideoDiv(dataObj));
   });
 
   //return
@@ -43,8 +46,58 @@ const createCard = (dataObj) => {
 
 // createVideoDiv function takes data object , and return video section
 const createVideoDiv = (dataObj) => {
-  // not done yet
-  console.log(dataObj);
+  // Creating Dom elements
+  const videoDisplay = document.createElement("div");
+  const iframeVideo = document.createElement("iframe");
+  const iframeContent = document.createElement("div");
+  const iframeTitle = document.createElement("div");
+  const iframeH2 = document.createElement("h2");
+  const iframeChannelName= document.createElement("h3");
+  const iframeDescription = document.createElement("div");
+  const iframeDescriptionP = document.createElement("p");
+  const readMoreButton = document.createElement("h3");
+ 
+  // adding the dataobj to the created elements
+  iframeVideo.src = `https://www.youtube.com/embed/${dataObj.videoId}`;
+  iframeH2.textContent = dataObj.title;
+  iframeChannelName.textContent = dataObj.channelTitle;
+
+  // adding classes to the elements
+  iframeTitle.classList.add("iframeTitle");
+  iframeDescription.classList.add("iframe-description")
+  videoDisplay.classList.add("video-display");
+  iframeContent.classList.add("iframe-content");
+  iframeVideo.setAttribute("frameborder",'0');
+  iframeVideo.setAttribute("allowfullscreen", "true");
+  readMoreButton.id = "readMore";
+  readMoreButton.textContent = "show More";
+  
+  // appending elements to their divs
+  iframeDescription.append(iframeDescriptionP,readMoreButton);
+  iframeTitle.append(iframeH2, iframeChannelName);
+  iframeContent.append(iframeTitle,iframeDescription);
+  videoDisplay.append(iframeVideo,iframeContent);
+
+  // show more button
+  const limit = 50;
+  const description = dataObj.description;
+  const subDescription = description.substring(0,limit);
+
+  iframeDescriptionP.textContent = subDescription;
+
+  let isMore = false;
+  readMoreButton.addEventListener("click",()=>{
+    if (isMore){
+      iframeDescriptionP.textContent = subDescription;
+      readMoreButton.textContent = "show Less";
+      isMore = !isMore //!true
+      } else{
+      iframeDescriptionP.textContent = description;
+      readMoreButton.textContent = "show More";
+      isMore = !isMore//!false
+    }
+  })
+  return videoDisplay;
 };
 
 //grid function takes data array and returns video container div
