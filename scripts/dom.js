@@ -27,18 +27,14 @@ const createCard = (dataObj) => {
 
   // appending elements to their divs
   imageContainer.appendChild(image)
-  videoDescription.appendChild(videoTitle)
-  videoDescription.appendChild(videoDesc)
-  videoDescription.appendChild(channelTitle)
-  card.appendChild(imageContainer)
-  card.appendChild(videoDescription)
+  videoDescription.append(videoTitle,videoDesc,channelTitle)
+  card.append(imageContainer,videoDescription)
 
   // add click listener
   card.addEventListener("click", (event) => {
     addDataToAppContainer(createVideoDiv(dataObj))
   });
 
-  //return
   return card
 }
 
@@ -79,7 +75,7 @@ const createVideoDiv = (dataObj) => {
   // show more button
   const limit = 50;
   const description = dataObj.description;
-  const subDescription = description.substring(0,limit);
+  const subDescription = description.substring(0,limit)+" ..."
 
   iframeDescriptionP.textContent = subDescription;
 
@@ -88,11 +84,11 @@ const createVideoDiv = (dataObj) => {
     if (isMore){
       iframeDescriptionP.textContent = subDescription;
       readMoreButton.textContent = "show More";
-      isMore = !isMore //!true
+      isMore = !isMore 
       } else{
       iframeDescriptionP.textContent = description;
       readMoreButton.textContent = "show Less";
-      isMore = !isMore//!false
+      isMore = !isMore
     }
   })
   return videoDisplay;
@@ -102,10 +98,13 @@ const createVideoDiv = (dataObj) => {
 const grid = (dataArray) => {
   const videoContainer = document.createElement("div")
   videoContainer.classList.add("app-video")
-  dataArray.forEach((dataObj) => {
-    videoContainer.appendChild(createCard(dataObj))
-  })
-  return videoContainer
+  if(dataArray){
+    dataArray.forEach((dataObj) => {
+        videoContainer.appendChild(createCard(dataObj))
+    })
+    return videoContainer
+  }
+
 }
 
 // searchAction function retrieve the input and return the result
@@ -114,6 +113,7 @@ const searchAction = (callback) => {
   const inputValue = input.value.trim().toLowerCase()
   if (!inputValue) {
     callback()
+    return
   }
   getSearchResults(inputValue, (data) => {
     callback(data)
@@ -133,7 +133,7 @@ const addDataToAppContainer = (data) => {
 // onStart function start the website
 const onStart = (() => {
   const searchButton = document.querySelector("#search-button");
-  getPopularVideos((data) => addDataToAppContainer(grid (data)));
+  getPopularVideos((data) => addDataToAppContainer(grid (data)),"NA",25);
   searchButton.addEventListener("click", () => {
   searchAction((data) => addDataToAppContainer(grid(data)));
   });

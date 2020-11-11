@@ -37,7 +37,7 @@ html {
 .app-input {
   display: flex;
   justify-content: center;
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 }
 
 .app-input input {
@@ -66,9 +66,8 @@ html {
 }
 
 .app-video {
-  min-width: 70%;
-  min-height: 430px;
-  margin-top: 37px;
+    width: 57%;
+    margin-top: 37px;
 }
 
 .video-content {
@@ -90,6 +89,64 @@ html {
   line-height: 23px;
   border-bottom: 1px solid white;
   padding-bottom: 13px;
+}
+
+input:focus{
+  outline: none;
+}
+
+.video-display {
+  width: 60vw;
+}
+
+iframe {
+  width: 100%;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.iframe-content {
+  margin-top: 30px;
+}
+
+.iframeTitle {
+  display: flex;
+  justify-content: space-between;
+  width: 58vw;
+}
+.iframeTitle h3 {
+  
+  color: #aa7de0;
+} 
+.iframeTitle {
+  margin: 20px 0;
+}
+
+a {
+  color: #0070ff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: 0030ff;
+}
+.iframe-description {
+  color: #c5d8f1;
+  width: 100%;
+}
+
+.iframe-description p {
+  width: 40vw;
+}
+
+.iframe-description h3 {
+  margin-top: 18px;
+  cursor: pointer;
+  margin-bottom: 2em;
+  color: #0070ff;
+}
+.iframe-description h3:hover {
+  color: #0030ff;
 }
 
 @media screen and (max-width: 900px) {
