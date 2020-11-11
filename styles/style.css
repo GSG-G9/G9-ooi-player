@@ -66,22 +66,15 @@ html {
 }
 
 .app-video {
-  /* background-color: #c4c4c4; */
   min-width: 70%;
   min-height: 430px;
   margin-top: 37px;
 }
 
 .video-content {
-  background-color: #031527;
+  cursor: pointer;;
   margin-bottom: 30px;
   display: flex;
-}
-
-.video {
-  width: 160px;
-  height: 150px;
-  background-color: #abb7c4;
 }
 
 .video-description {

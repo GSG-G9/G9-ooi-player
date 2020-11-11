@@ -44,7 +44,7 @@ const getData = (ResourceTypes, options, callback) => {
         videoId: ResourceTypes == "search" ? item.id.videoId : item.id,
         title: item.snippet.title,
         description: item.snippet.description,
-        thumbnails: item.snippet.thumbnails.default,
+        thumbnails: item.snippet.thumbnails.medium,
         channelTitle: item.snippet.channelTitle,
       }))
     );
