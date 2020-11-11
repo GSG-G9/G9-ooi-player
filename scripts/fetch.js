@@ -50,3 +50,5 @@ const getData = (ResourceTypes, options, callback) => {
     );
   });
 };
+
+module.exports = { getQueryString, createYoutubeUrl };
