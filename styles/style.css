@@ -1,0 +1,120 @@
+*,
+html {
+  padding: 0;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 630px;
+  max-height: auto;
+  align-items: center;
+  background-color: #031527;
+  color: white;
+}
+
+.header {
+  width: 100%;
+}
+
+.app-logo {
+  text-align: center;
+  margin: 29px;
+}
+
+.app-logo h1 {
+  font-size: 3em;
+  letter-spacing: 7px;
+  font-style: italic;
+}
+
+.app-logo span {
+  color: #0070ff;
+}
+
+.app-input {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4em;
+}
+
+.app-input input {
+  background-color: #233a50;
+  border: none;
+  width: 50%;
+  height: 50px;
+  position: relative;
+  font-size: 30px;
+  text-indent: 30px;
+  border-radius: 45px;
+}
+
+.app-input img {
+  width: 30px;
+  height: 30px;
+  margin-left: -3em;
+  z-index: 1;
+  margin-top: 11px;
+  cursor: pointer;
+}
+
+::placeholder {
+  font-size: 2vw;
+  color: white;
+}
+
+.app-video {
+  /* background-color: #c4c4c4; */
+  min-width: 70%;
+  min-height: 430px;
+  margin-top: 37px;
+}
+
+.video-content {
+  background-color: #031527;
+  margin-bottom: 30px;
+  display: flex;
+}
+
+.video {
+  width: 160px;
+  height: 150px;
+  background-color: #abb7c4;
+}
+
+.video-description {
+  max-width: 600px;
+  margin-left: 30px;
+}
+
+.video-description h2 {
+  margin: 8px 0;
+}
+
+.video-description p {
+  line-height: 23px;
+  border-bottom: 1px solid white;
+  padding-bottom: 13px;
+}
+
+@media screen and (max-width: 900px) {
+  .video-content {
+    background-color: #031527;
+    margin: 10px;
+    display: block;
+  }
+
+  .video-description {
+    margin-left: 0px;
+  }
+
+  .app-input img {
+    visibility: hidden;
+  }
+
+  ::placeholder {
+    font-size: 3vw;
+  }
+}
