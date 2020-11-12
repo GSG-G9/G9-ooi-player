@@ -82,18 +82,14 @@ const createVideoDiv = (dataObj) => {
 
   iframeDescriptionP.textContent = subDescription;
 
+  // read More Button
   let isMore = false;
-  readMoreButton.addEventListener("click",()=>{
-    if (isMore){
-      iframeDescriptionP.textContent = subDescription;
-      readMoreButton.textContent = "show More";
-      isMore = !isMore 
-      } else{
-      iframeDescriptionP.textContent = description;
-      readMoreButton.textContent = "show Less";
-      isMore = !isMore
-    }
-  })
+  elementsObj.readMoreButton.addEventListener("click", () => {
+    elementsObj.iframeDescriptionP.textContent = isMore ? subDescription : description;
+    elementsObj.readMoreButton.textContent = `Show ${isMore ? "More" : "Less"}`;
+    isMore = !isMore;
+  });
+  
   return videoDisplay;
 };
 
