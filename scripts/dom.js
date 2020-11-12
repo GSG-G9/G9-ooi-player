@@ -1,86 +1,109 @@
 // createCard function takes data object as a parameter , and returns card element
 const createCard = (dataObj) => {
   // Creating Dom elements
-  const card = document.createElement("div")
-  const imageContainer = document.createElement("div")
-  const image = document.createElement("img")
-  const videoDescription = document.createElement("div")
-  const videoTitle = document.createElement("h2")
-  const videoDesc = document.createElement("p")
-  const channelTitle = document.createElement("h3")
+  const elementsObj = createElementsObj({
+    "card": "div",
+    "imageContainer": "div",
+    "image": "img",
+    "videoDescription": "div",
+    "videoTitle": "h2",
+    "videoDesc": "p",
+    "channelTitle": "h3"
+  })
 
   const LIMIT_DES = 170;
   const WIDTH_SCALE = 0.9
+
   // adding the dataobj to the created elements
-  image.src = dataObj.thumbnails.url
-  image.width = dataObj.thumbnails.width * WIDTH_SCALE
-  videoTitle.textContent = dataObj.title                                                                                        
-  videoDesc.textContent = dataObj.description.substring(0,LIMIT_DES)+" ..."
-  channelTitle.textContent = dataObj.channelTitle
+  setAttributes(elementsObj.image, {
+    "src": dataObj.thumbnails.url,
+    "width": dataObj.thumbnails.width * WIDTH_SCALE
+  })
+
+  setTextContents(elementsObj, {
+    "videoTitle": dataObj.title,
+    "videoDesc": dataObj.description.substring(0, LIMIT_DES) + " ...",
+    "channelTitle": dataObj.channelTitle,
+  })
 
   // adding classes to the elements
-  card.classList.add("video-content")
-  card.id = dataObj.videoId
-  imageContainer.classList.add("video")
-  videoDescription.classList.add("video-description")
-  videoTitle.classList.add("video-title")
-  videoDesc.classList.add("video-desc")
-  channelTitle.classList.add("channel-title")
+  setClasses(elementsObj, {
+    "card": "video-content",
+    "imageContainer": "video",
+    "videoDescription": "video-description",
+    "videoTitle": "video-title",
+    "videoDesc": "video-desc",
+    "channelTitle": "channel-title",
+  })
+
+  elementsObj.card.id = dataObj.videoId
 
   // appending elements to their divs
-  imageContainer.appendChild(image)
-  videoDescription.append(videoTitle,videoDesc,channelTitle)
-  card.append(imageContainer,videoDescription)
+  appendNodes(elementsObj, {
+    "imageContainer": ["image"],
+    "videoDescription": ["videoTitle", "videoDesc", "channelTitle"],
+    "card": ["imageContainer", "videoDescription"]
+  })
 
   // add click listener
-  card.addEventListener("click", (event) => {
+  elementsObj.card.addEventListener("click", (event) => {
     addDataToAppContainer(createVideoDiv(dataObj))
   });
-
-  return card
+  return elementsObj.card
 }
 
 // createVideoDiv function takes data object , and return video section
 const createVideoDiv = (dataObj) => {
   // Creating Dom elements
-  const videoDisplay = document.createElement("div");
-  const iframeVideo = document.createElement("iframe");
-  const iframeContent = document.createElement("div");
-  const iframeTitle = document.createElement("div");
-  const iframeH2 = document.createElement("h2");
-  const iframeChannelName= document.createElement("h3");
-  const iframeDescription = document.createElement("div");
-  const iframeDescriptionP = document.createElement("p");
-  const readMoreButton = document.createElement("h3");
- 
+  const elementsObj = createElementsObj({
+    "videoDisplay": "div",
+    "iframeVideo": "iframe",
+    "iframeContent": "div",
+    "iframeTitle": "div",
+    "iframeH2": "h2",
+    "iframeChannelName": "h3",
+    "iframeDescription": "div",
+    "iframeDescriptionP": "p",
+    "readMoreButton": "h3"
+  })
+
   // adding the dataobj to the created elements
-  iframeVideo.src = `https://www.youtube.com/embed/${dataObj.videoId}`;
-  iframeH2.textContent = dataObj.title;
-  iframeChannelName.textContent = dataObj.channelTitle;
+  elementsObj.iframeVideo.src = `https://www.youtube.com/embed/${dataObj.videoId}`;
 
   // adding classes to the elements
-  iframeTitle.classList.add("iframeTitle");
-  iframeDescription.classList.add("iframe-description")
-  videoDisplay.classList.add("app-video");
-  iframeContent.classList.add("iframe-content");
-  iframeVideo.setAttribute("frameborder",'0');
-  iframeVideo.setAttribute("allowfullscreen", "true");
-  readMoreButton.id = "readMore";
-  readMoreButton.textContent = "show More";
-  
+  setClasses(elementsObj, {
+    "iframeTitle": "iframeTitle",
+    "iframeDescription": "iframe-description",
+    "videoDisplay": "app-video",
+    "iframeContent": "iframe-content"
+  })
+
+  setAttributes(elementsObj.iframeVideo, {
+    "frameborder": "0",
+    "allowfullscreen": "true"
+  })
+  elementsObj.readMoreButton.id = "readMore";
+
   // appending elements to their divs
-  iframeDescription.append(iframeDescriptionP,readMoreButton);
-  iframeTitle.append(iframeH2, iframeChannelName);
-  iframeContent.append(iframeTitle,iframeDescription);
-  videoDisplay.append(iframeVideo,iframeContent);
+  appendNodes(elementsObj, {
+    "iframeDescription": ["iframeDescriptionP", "readMoreButton"],
+    "iframeTitle": ["iframeH2", "iframeChannelName"],
+    "iframeContent": ["iframeTitle", "iframeDescription"],
+    "videoDisplay": ["iframeVideo", "iframeContent"],
+  })
+
+  const LIMIT = 90;
 
   // show more button
-  const LIMIT = 90;
-  
   const description = dataObj.description;
-  const subDescription = description.substring(0,LIMIT)+"..."
+  const subDescription = description.substring(0, LIMIT) + " ..."
 
-  iframeDescriptionP.textContent = subDescription;
+  setTextContents(elementsObj, {
+    "iframeH2": dataObj.title,
+    "iframeChannelName": dataObj.channelTitle,
+    "readMoreButton": "show More",
+    "iframeDescriptionP": subDescription
+  })
 
   // read More Button
   let isMore = false;
@@ -89,21 +112,20 @@ const createVideoDiv = (dataObj) => {
     elementsObj.readMoreButton.textContent = `Show ${isMore ? "More" : "Less"}`;
     isMore = !isMore;
   });
-  
-  return videoDisplay;
+
+  return elementsObj.videoDisplay;
 };
 
 //grid function takes data array and returns video container div
 const grid = (dataArray) => {
   const videoContainer = document.createElement("div")
   videoContainer.classList.add("app-video")
-  if(dataArray){
+  if (dataArray) {
     dataArray.forEach((dataObj) => {
-        videoContainer.appendChild(createCard(dataObj))
+      videoContainer.appendChild(createCard(dataObj))
     })
     return videoContainer
   }
-
 }
 
 // searchAction function retrieve the input and return the result
@@ -132,8 +154,8 @@ const addDataToAppContainer = (data) => {
 // onStart function start the website
 (() => {
   const searchButton = document.querySelector("#search-button");
-  getPopularVideos((data) => addDataToAppContainer(grid (data)),"NA",25);
+  getPopularVideos((data) => addDataToAppContainer(grid(data)), "NA", 25);
   searchButton.addEventListener("click", () => {
-  searchAction((data) => addDataToAppContainer(grid(data)));
+    searchAction((data) => addDataToAppContainer(grid(data)));
   });
 })();
