@@ -130,7 +130,7 @@ const addDataToAppContainer = (data) => {
 }
 
 // onStart function start the website
-const onStart = (() => {
+(() => {
   const searchButton = document.querySelector("#search-button");
   getPopularVideos((data) => addDataToAppContainer(grid (data)),"NA",25);
   searchButton.addEventListener("click", () => {
