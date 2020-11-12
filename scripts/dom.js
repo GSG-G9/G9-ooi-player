@@ -9,11 +9,13 @@ const createCard = (dataObj) => {
   const videoDesc = document.createElement("p")
   const channelTitle = document.createElement("h3")
 
+  const LIMIT_DES = 170;
+  const WIDTH_SCALE = 0.9
   // adding the dataobj to the created elements
   image.src = dataObj.thumbnails.url
-  image.width = dataObj.thumbnails.width * 0.9
+  image.width = dataObj.thumbnails.width * WIDTH_SCALE
   videoTitle.textContent = dataObj.title                                                                                        
-  videoDesc.textContent = dataObj.description.substring(0,170)+" ..."
+  videoDesc.textContent = dataObj.description.substring(0,LIMIT_DES)+" ..."
   channelTitle.textContent = dataObj.channelTitle
 
   // adding classes to the elements
@@ -73,9 +75,10 @@ const createVideoDiv = (dataObj) => {
   videoDisplay.append(iframeVideo,iframeContent);
 
   // show more button
-  const limit = 50;
+  const LIMIT = 90;
+  
   const description = dataObj.description;
-  const subDescription = description.substring(0,limit)+" ..."
+  const subDescription = description.substring(0,LIMIT)+"..."
 
   iframeDescriptionP.textContent = subDescription;
 
