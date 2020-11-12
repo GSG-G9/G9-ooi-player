@@ -5,6 +5,8 @@ const fetch = (url, callback) => {
     if (xhr.readyState === xhr.DONE) {
       if (xhr.status == 200) {
         callback(JSON.parse(xhr.responseText));
+      }else{
+        console.log("error");// need more work Something like that callback(data, error)
       }
     }
   });
