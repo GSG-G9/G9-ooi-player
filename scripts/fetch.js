@@ -15,11 +15,9 @@ const fetch = (url, callback) => {
 // get the query obj and convert it to string
 const getQueryString = (options) => {
   let queryString = "?";
-  for (const key in options) {
-    if (options.hasOwnProperty(key)) {
-      queryString += `${key}=${options[key]}&`;
-    }
-  }
+  mapObj(options, (key, value) => {
+    queryString += `${key}=${value}&`;
+  });
   return queryString.substr(0, queryString.length - 1);
 };
 
